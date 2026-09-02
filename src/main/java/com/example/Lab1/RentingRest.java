@@ -12,6 +12,8 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class RentingRest {
 
+    private boolean carIsRented = false;
+
     public static void main(String[] args) {
         SpringApplication.run(Lab1Application.class, args);
     }
@@ -43,11 +45,11 @@ public class RentingRest {
         }
 
         if (!rent) {
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "The rent parameter must be true"
-            );
+            carIsRented = false;
+            return;
         }
+
+        carIsRented = true;
     }
 
     public record Car(
